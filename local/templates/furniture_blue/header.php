@@ -154,4 +154,5 @@ $APPLICATION->IncludeFile(
 			</div>
 		
 			<div id="workarea">
+                <?$APPLICATION->ShowViewContent('news_detail')?>
 				<h1 id="pagetitle"><?$APPLICATION->ShowTitle(false);?></h1>

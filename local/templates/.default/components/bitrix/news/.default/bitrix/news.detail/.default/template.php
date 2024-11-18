@@ -12,6 +12,13 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
+
+<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
+    <?$this->SetViewTarget('news_detail');?>
+    <span class="news-date-time"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
+    <?$this->EndViewTarget();?>
+<?endif;?>
+
 <div class="news-detail">
 	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
 		<img
@@ -24,9 +31,7 @@ $this->setFrameMode(true);
 			title="<?=$arResult["DETAIL_PICTURE"]["TITLE"]?>"
 			/>
 	<?endif?>
-	<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
-		<span class="news-date-time"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
-	<?endif;?>
+
 	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
 		<h3><?=$arResult["NAME"]?></h3>
 	<?endif;?>
