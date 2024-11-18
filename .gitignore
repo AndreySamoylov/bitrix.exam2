@@ -45,6 +45,8 @@ nb-configuration.xml
 bitrix/*
 
 upload/*
+logs/*
+test/*
 
 robots.txt
 
