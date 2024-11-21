@@ -8,3 +8,16 @@ foreach ($arResult['ITEMS'] as $key => $arItem)
 
 	$arResult['ITEMS'][$key] = $arItem;
 }
+
+$arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_MATERIAL");
+$arFilter = Array("IBLOCK_ID" => $arParams['IBLOCK_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+$arGroupBy = array('PROPERTY_MATERIAL');
+$res = CIBlockElement::GetList(Array(), $arFilter, $arGroupBy, false, $arSelect);
+
+$materials = [];
+while($ob = $res->Fetch())
+{
+    $materials[] = $ob;
+}
+
+$arResult['MATERIALS'] = $materials;

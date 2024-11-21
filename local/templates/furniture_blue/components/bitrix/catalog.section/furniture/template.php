@@ -1,4 +1,20 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+
+<?php if (!empty($arResult['MATERIALS'])) {?>
+<?$this->SetViewTarget('products_section_materials');?>
+    <div class="content-block">
+        <div class="content-block-inner">
+            <ul>
+                <?php foreach ($arResult['MATERIALS'] as $material) { ?>
+                    <li><?= "{$material['PROPERTY_MATERIAL_VALUE']}: {$material['CNT']}" ?></li>
+                <?php } ?>
+            </ul>
+        </div>
+    </div>
+<?$this->EndViewTarget();?>
+<?php } ?>
+
+
 <div class="catalog-list">
 <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	<?=$arResult["NAV_STRING"]?><br />

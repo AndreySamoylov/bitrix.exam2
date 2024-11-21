@@ -111,7 +111,8 @@ $APPLICATION->IncludeFile(
 		"ACTIVE_COMPONENT" => "Y"
 	)
 );?>
-				<div class="content-block">
+                <?$APPLICATION->ShowViewContent('products_section_materials');?>
+                <div class="content-block">
 					<div class="content-block-inner">
 						<h3><?=GetMessage('CFT_NEWS')?></h3>
 <?
