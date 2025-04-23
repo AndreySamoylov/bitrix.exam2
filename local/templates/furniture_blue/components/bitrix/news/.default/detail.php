@@ -68,6 +68,7 @@ $ElementID = $APPLICATION->IncludeComponent(
 		"SHARE_SHORTEN_URL_KEY" => $arParams["SHARE_SHORTEN_URL_KEY"],
 		"ADD_ELEMENT_CHAIN" => $arParams["ADD_ELEMENT_CHAIN"],
 		'STRICT_SECTION_CHECK' => $arParams['STRICT_SECTION_CHECK'],
+		'ID_IBLOCK_CANONICAL' => $arParams['ID_IBLOCK_CANONICAL'],
 	],
 	$component
 );?>

@@ -1,5 +1,6 @@
 <?
 $MESS["T_IBLOCK_DESC_SPECIAL_DATE"] = "Выводить дату первого элемента в метатег specaildate";
+$MESS["T_IBLOCK_DESC_ID_IBLOCK_CANONICAL"] = "ID информационного блока для rel=canonical";
 $MESS["T_IBLOCK_DESC_NEWS_DATE"] = "Выводить дату элемента";
 $MESS["T_IBLOCK_DESC_NEWS_PICTURE"] = "Выводить изображение для анонса";
 $MESS["T_IBLOCK_DESC_NEWS_TEXT"] = "Выводить текст анонса";

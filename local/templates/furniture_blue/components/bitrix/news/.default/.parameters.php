@@ -12,6 +12,11 @@ $arTemplateParameters = array(
         "TYPE" => "CHECKBOX",
         "DEFAULT" => "Y",
     ),
+    "ID_IBLOCK_CANONICAL" => Array(
+        "NAME" => GetMessage("T_IBLOCK_DESC_ID_IBLOCK_CANONICAL"),
+        "TYPE" => "STRING",
+        "DEFAULT" => "",
+    ),
 	"DISPLAY_DATE" => Array(
 		"NAME" => GetMessage("T_IBLOCK_DESC_NEWS_DATE"),
 		"TYPE" => "CHECKBOX",

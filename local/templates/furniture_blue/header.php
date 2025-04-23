@@ -25,6 +25,7 @@ IncludeTemplateLangFile(__FILE__);
 		
 	</style>
 	<![endif]-->
+    <?php $APPLICATION->ShowProperty('cannonical'); ?>
     <meta property="specialdate" content="<?php $APPLICATION->ShowProperty('specialdate'); ?>">
 	<title><?$APPLICATION->ShowTitle()?></title>
 </head>
