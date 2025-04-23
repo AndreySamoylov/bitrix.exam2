@@ -24,6 +24,22 @@ class CIBLockHandler
                     }
                 }
             }
+        } else if ($arFields['IBLOCK_ID'] == PRODUCTS_IBLOCK_ID && !empty($arFields['ACTIVE']) && $arFields['ACTIVE'] === 'N') {
+            $product = CIBlockElement::GetByID($arFields['ID'])->Fetch();
+
+            // Если количество просмотров товара больше 2
+            if (!empty($product['SHOW_COUNTER']) && is_numeric($product['SHOW_COUNTER']) && $product['SHOW_COUNTER'] > MAX_SHOW_COUNTER) {
+                global $APPLICATION;
+                $APPLICATION->throwException(
+                    getMessage('EVENTS_EXCEPTION_UPDATE_MAX_COUNTER',
+                        array(
+                            '#COUNT#' => $product['SHOW_COUNTER'],
+                            '#MAX_COUNT#' => MAX_SHOW_COUNTER,
+                        )
+                    )
+                );
+                return false;
+            }
         }
     }
 
