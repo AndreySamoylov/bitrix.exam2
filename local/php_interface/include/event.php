@@ -55,7 +55,7 @@ class CIBLockHandler
     }
 }
 AddEventHandler("main", "OnBeforeUserUpdate", Array("CMainHandler", "OnBeforeUserUpdateHandler"));
-
+AddEventHandler("main", "OnEpilog", array('CMainHandler', 'OnEpilogHandler'));
 class CMainHandler {
     static public function OnBeforeUserUpdateHandler($arFields)
     {
@@ -68,6 +68,28 @@ class CMainHandler {
         // Если пользователя добавили в группу контект редакторы
         if (!in_array(CONTENT_EDITOR_GROUP_ID, $currentUserGroups) && in_array(CONTENT_EDITOR_GROUP_ID, $updatedUserGroups)){
             AddMessage2Log("Пользователя {$arFields['NAME']} добавили в группу контект-редакторы");
+        }
+    }
+
+    static public function OnEpilogHandler()
+    {
+        if (defined('ERROR_404') && ERROR_404 === 'Y') {
+            global $APPLICATION;
+            // Сбрасываем буфер
+            $APPLICATION->RestartBuffer();
+            // Подключаем файл для отображения 404 страницы, если страница не найдена
+            include $_SERVER['DOCUMENT_ROOT'] . SITE_TEMPLATE_PATH . "/header.php";
+            include $_SERVER['DOCUMENT_ROOT'] . "/404.php";
+            include $_SERVER['DOCUMENT_ROOT'] . SITE_TEMPLATE_PATH . "/footer.php";
+            // Логирование в журнал событий
+            CEventLog::Add(
+                array(
+                    "SEVERITY" => "INFO",
+                    "AUDIT_TYPE_ID" => "ERROR_404",
+                    "MODULE_ID" => "main",
+                    "DESCRIPTION" => $APPLICATION->GetCurPage(),
+                )
+            );
         }
     }
 }
