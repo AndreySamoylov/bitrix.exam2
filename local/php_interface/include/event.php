@@ -57,6 +57,7 @@ class CIBLockHandler
 AddEventHandler("main", "OnBeforeUserUpdate", Array("CMainHandler", "OnBeforeUserUpdateHandler"));
 AddEventHandler("main", "OnEpilog", array('CMainHandler', 'OnEpilogHandler'));
 AddEventHandler("main", "OnBeforeEventAdd", array("CMainHandler", "OnBeforeEventAddHandler"));
+AddEventHandler("main", "OnBuildGlobalMenu", array("CMainHandler", "OnBuildGlobalMenuHandler"));
 
 class CMainHandler {
     static public function OnBeforeUserUpdateHandler($arFields)
@@ -130,6 +131,43 @@ class CMainHandler {
                     )
                 ),
             ));
+        }
+    }
+
+    static function OnBuildGlobalMenuHandler(&$aGlobalMenu, &$aModuleMenu) {
+        $isAdmin = false;
+        $isContentEditor = false;
+
+        // Получить группы пользователя
+        global $USER;
+        $groups = $USER->GetUserGroupArray();
+        $contentGroupID = CGroup::GetList(
+            $by="c_sort",
+            $order="desc",
+            array(
+                'STRING_ID' => CONTENT_EDITORS_GROUP_CODE
+            )
+        )->Fetch()['ID'];
+
+        // Пользователь админ
+        if (in_array(ADMIN_GROUP_ID, $groups)) {
+            $isAdmin = true;
+        }
+
+        // Пользователь контент-редактор
+        if (in_array($contentGroupID, $groups)) {
+            $isContentEditor = true;
+        }
+
+        if (!$isAdmin && $isContentEditor) {
+            foreach ($aModuleMenu as $key => $item) {
+                if ($item['items_id'] === "menu_iblock_/news") {
+                    $aModuleMenu = [$item];
+
+                    break;
+                }
+            }
+            $aGlobalMenu = ['global_menu_content' => $aGlobalMenu['global_menu_content']];
         }
     }
 }
