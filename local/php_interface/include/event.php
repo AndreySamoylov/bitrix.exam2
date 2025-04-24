@@ -56,6 +56,8 @@ class CIBLockHandler
 }
 AddEventHandler("main", "OnBeforeUserUpdate", Array("CMainHandler", "OnBeforeUserUpdateHandler"));
 AddEventHandler("main", "OnEpilog", array('CMainHandler', 'OnEpilogHandler'));
+AddEventHandler("main", "OnBeforeEventAdd", array("CMainHandler", "OnBeforeEventAddHandler"));
+
 class CMainHandler {
     static public function OnBeforeUserUpdateHandler($arFields)
     {
@@ -90,6 +92,44 @@ class CMainHandler {
                     "DESCRIPTION" => $APPLICATION->GetCurPage(),
                 )
             );
+        }
+    }
+
+    static function OnBeforeEventAddHandler(&$event, &$lid, &$arFields)
+    {
+        if (!empty($event) && $event === 'FEEDBACK_FORM') {
+            global $USER;
+            if ($USER->IsAuthorized()) {
+                $arFields['AUTHOR'] = getMessage(
+                    'EVENTS_USER_AUTHORIZED',
+                    array(
+                        '#USER_ID#' => $USER->GetID(),
+                        '#USER_LOGIN#' => $USER->GetLogin(),
+                        '#USER_NAME#' => $USER->GetFullName(),
+                        '#NAME#' => $arFields['AUTHOR'],
+                    )
+                );
+            } else {
+                $arFields['AUTHOR'] = getMessage(
+                    'EVENTS_USER_UNAUTHORIZED',
+                    array(
+                        '#NAME#' => $arFields['AUTHOR'],
+                    )
+                );
+            }
+
+            CEventLog::Add(array(
+                "SEVERITY" => "INFO",
+                "AUDIT_TYPE_ID" => "MY_OWN_TYPE",
+                "MODULE_ID" => "main",
+                "ITEM_ID" => $event,
+                "DESCRIPTION" => getMessage(
+                    'EVENTS_FEEDBACK_FORM_LOG',
+                    array(
+                        '#AUTHOR#' => $arFields['AUTHOR']
+                    )
+                ),
+            ));
         }
     }
 }
