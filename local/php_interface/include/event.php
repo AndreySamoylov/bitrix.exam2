@@ -58,6 +58,7 @@ AddEventHandler("main", "OnBeforeUserUpdate", Array("CMainHandler", "OnBeforeUse
 AddEventHandler("main", "OnEpilog", array('CMainHandler', 'OnEpilogHandler'));
 AddEventHandler("main", "OnBeforeEventAdd", array("CMainHandler", "OnBeforeEventAddHandler"));
 AddEventHandler("main", "OnBuildGlobalMenu", array("CMainHandler", "OnBuildGlobalMenuHandler"));
+AddEventHandler("main", "OnBeforeProlog", array("CMainHandler", "MyOnBeforePrologHandler"));
 
 class CMainHandler {
     static public function OnBeforeUserUpdateHandler($arFields)
@@ -168,6 +169,39 @@ class CMainHandler {
                 }
             }
             $aGlobalMenu = ['global_menu_content' => $aGlobalMenu['global_menu_content']];
+        }
+    }
+
+    static function MyOnBeforePrologHandler()
+    {
+        if (\Bitrix\Main\Loader::includeModule('iblock')){
+            global $APPLICATION;
+            $dir = $APPLICATION->GetCurPage();
+
+            $element = CIBlockElement::GetList(
+                array(),
+                array(
+                    'IBLOCK_ID' => \helpers\IblockHelper::getIdByCode(METATAGS_IBLOCK_CODE),
+                    'NAME' => $dir,
+                ),
+                false,
+                false,
+                array(
+                    'ID',
+                    'IBLOCK_ID',
+                    'PROPERTY_TITLE',
+                    'PROPERTY_DESCRIPTION',
+                )
+            )->Fetch();
+
+            if (!empty($element['PROPERTY_TITLE_VALUE'])){
+                $APPLICATION->SetPageProperty('title', $element['PROPERTY_TITLE_VALUE']);
+            }
+
+            if (!empty($element['PROPERTY_DESCRIPTION_VALUE'])){
+                $APPLICATION->SetPageProperty('description', $element['PROPERTY_DESCRIPTION_VALUE']);
+            }
+
         }
     }
 }
