@@ -2,14 +2,21 @@
 $aMenuLinks = Array(
 	Array(
 		"Экзамен 2", 
-		SITE_DIR . "/ex2/",
+		"/ex2/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Форма обратной связи",
-        SITE_DIR . "/ex2/feedback/",
+		"Форма обратной связи", 
+		"/ex2/feedback/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Простой компонент (ex2-70)",
+		"/ex2/simplecomp-ex2-70/",
 		Array(), 
 		Array(), 
 		"" 
