@@ -8,7 +8,7 @@ IncludeTemplateLangFile(__FILE__);
 
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="ex2_meta" content="<?= $APPLICATION->GetDirProperty('ex2_meta') ?>"/>
+    <meta name="ex2_meta" content="<?= $APPLICATION->GetProperty('ex2_meta') ?>"/>
 	<? $APPLICATION->ShowHead(); ?>
 	<link href="<?= SITE_TEMPLATE_PATH ?>/common.css" type="text/css" rel="stylesheet" />
 	<link href="<?= SITE_TEMPLATE_PATH ?>/colors.css" type="text/css" rel="stylesheet" />
@@ -43,7 +43,6 @@ IncludeTemplateLangFile(__FILE__);
 	<div id="page-wrapper">
 		<div id="panel"><? $APPLICATION->ShowPanel(); ?></div>
 		<div id="header">
-
 			<table id="logo">
 				<tr>
 					<td><a href="<?= SITE_DIR ?>" title="<?= GetMessage('CFT_MAIN') ?>">

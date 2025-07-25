@@ -57,6 +57,16 @@ foreach($arResult["ITEMS"] as $cell=>$arElement):
 	endforeach;
 ?>
 </div>
+
+<?php if (is_array($arElement['REVIEWS']) && count($arElement['REVIEWS']) > 0) { ?>
+    <ul>
+        <span><?= GetMessage('REVIEWS') ?></span>
+        <?php foreach ($arElement['REVIEWS'] as $element) { ?>
+            <li><?= $element['NAME'] ?></li>
+        <?php } ?>
+    </ul>
+<?php } ?>
+
 <?
 endforeach; // foreach($arResult["ITEMS"] as $arElement):
 ?>
