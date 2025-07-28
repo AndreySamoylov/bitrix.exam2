@@ -100,9 +100,3 @@ foreach ($arResult['ITEMS'] as $key => $arItem)
 
     $arResult['ITEMS'][$key] = $arItem;
 }
-
-
-$ex2Meta = $APPLICATION->GetProperty('ex2_meta');
-$ex2Meta = str_replace('#count#', 123123, $ex2Meta);
-$APPLICATION->SetDirProperty('ex2_meta', $ex2Meta);
-var_dump($APPLICATION->GetProperty('ex2_meta'));
